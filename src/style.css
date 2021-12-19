@@ -1,16 +1,31 @@
 body{
-    background-color: #222222;
+    background-color: #272727;
     display: flex;
     margin: 0px;
     border: none;
     padding: 0px;
     justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#upload-file-box{
-    width: 95%;
-    height: 95%;
-    margin-top: 15px;
+.button {
+    display: flex;
+    position: relative;
+    top: 45%;
+    justify-content: center;
+    height: 50px;
+    width: 150px;
+    margin: 5px;
+    background-color: rgb(75, 120, 218);
     border-radius: 10px;
-    background-color: #353535;
+    transition: background-color 150ms;
+}
+
+.button:hover{
+    background-color: rgb(101, 144, 235);
+    transition: background-color 150ms;
+}
+
+.button:single-button{
+    background-color: rgb(66, 91, 145);
 }
