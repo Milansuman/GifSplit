@@ -1,31 +1,32 @@
 body{
-    background-color: #272727;
+    background-color: #202020;
     display: flex;
     margin: 0px;
     border: none;
     padding: 0px;
     justify-content: center;
+    align-items: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.button {
+#frame{
+    width: 90%;
+    height: 90%;
+    border-radius: 30px;
     display: flex;
-    position: relative;
-    top: 45%;
     justify-content: center;
-    height: 50px;
-    width: 150px;
-    margin: 5px;
-    background-color: rgb(75, 120, 218);
-    border-radius: 10px;
-    transition: background-color 150ms;
+    align-items: center;
+    color: #efefef;
+    font-size: 100px;
+    font-weight: bold;
+    background-color: #2e2e2e;
 }
 
-.button:hover{
-    background-color: rgb(101, 144, 235);
-    transition: background-color 150ms;
+#frame:hover{
+    border: 5px dashed;
 }
 
-.button:single-button{
-    background-color: rgb(66, 91, 145);
+#filePicker{
+    width: 0px;
+    height: 0px;
 }
