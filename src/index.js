@@ -1,14 +1,42 @@
-const {app, BrowserWindow, ipcRenderer} = require("electron")
+const {app, BrowserWindow, dialog, ipcMain} = require("electron");
+const path = require("path");
 
-const createWindow = () => {
-    const window = new BrowserWindow({width: 800, height: 600, minWidth: 800, minHeight: 600})
-    window.loadFile("src/index.html")
+function createWindow() {
+    const window = new BrowserWindow({
+        width: 800,
+        height: 600,
+        minWidth: 800,
+        minHeight: 600,
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js")
+        }
+    });
+    window.loadFile("src/index.html");
 };
 
+async function showFileDialog(){
+    const {cancelled, filePaths} = await dialog.showOpenDialog({
+        properties: ["openFile"],
+        filters: [
+            {
+                name: "GIFS",
+                extensions: ["gif"]
+            }
+        ]
+    });
+
+    if(cancelled){
+        return;
+    }else{
+        return filePaths;
+    }
+}
+
 app.whenReady().then(()=>{
-    createWindow()
-})
+    ipcMain.handle("dialog:openFile", showFileDialog);
+    createWindow();
+});
 
 app.on("window-all-closed", ()=>{
-    app.quit()
-})
+    app.quit();
+});
