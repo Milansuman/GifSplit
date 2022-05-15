@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Milansuman/GifSplit#readme",
   "devDependencies": {
-    "electron": "^16.2.5"
+    "electron": "^16.2.5",
+    "gif-extract-frames": "^1.0.2"
   }
 }
