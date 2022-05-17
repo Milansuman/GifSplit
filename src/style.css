@@ -23,7 +23,7 @@ body{
 }
 
 .arrow{
-    display: flex;
+    display: none;
     border-radius: 1000px;
     background-color: #2e2e2e;
     width: 50px;
