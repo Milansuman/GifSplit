@@ -21,12 +21,15 @@ forwardArrow.addEventListener("click", () => {
     if(counter < frames.length-1){
         counter++;
     }
+
     frame.innerHTML = "<img src=\"" + frames[counter] + "\"/>";
+    
 });
 
 backArrow.addEventListener("click", () => {
     if(counter > 0){
         counter--;
     }
+
     frame.innerHTML = "<img src=\"" + frames[counter] + "\"/>";
 });
