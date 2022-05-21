@@ -6,7 +6,7 @@ let counter = 0; //keeping track of which frame is to be viewed
 
 frame.addEventListener("click", async () => {
     let fileName = await window.electronAPI.openDialog(); //function exposed by preload.js
-
+    frame.innerHTML = "<h6>Loading...</h6>"
     //incase the user cancells the dialog or doesn't select a file
     if (fileName[0] != undefined){
         frames = await window.electronAPI.getFrames(fileName[0]);
