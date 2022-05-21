@@ -22,6 +22,16 @@ contextBridge.exposeInMainWorld("electronAPI", {
             paths.push(path.join(tempPath, elem));
         });
 
-        return paths;
+        //sorting to make sure frames are accessed in the correct order
+        //fixes the bug where some frames appear out of order
+        return paths.sort((a, b) => {
+            if(parseInt(a.split("-")[2].replace(".png", ""), 10) > parseInt(b.split("-")[2].replace(".png", ""), 10)){
+                return 1;
+            }else if(parseInt(a.split("-")[2].replace(".png", ""), 10) < parseInt(b.split("-")[2].replace(".png", ""), 10)){
+                return -1;
+            }else{
+                return 0;
+            }
+        });
     }
 });
