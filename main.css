@@ -32,6 +32,20 @@ body{
     display: none;
 }
 
+#image-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow: scroll;
+}
+
+#image-container>img{
+    width: 30%;
+    height: fit-content;
+    border-radius: 5px;
+}
+
 .button{
     width: fit-content;
     color: #88c0d0;

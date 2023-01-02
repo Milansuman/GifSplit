@@ -1,13 +1,17 @@
 <?php
-if(isset($_FILES["userfile"])){
-    $uploadFile = "uploads/" . basename($_FILES["userfile"]["name"]);
-    if(move_uploaded_file($_FILES["userfile"]["tmp_name"], $uploadFile)){
-        $gif = new Imagick($uploadFile);
-        $image = $gif->coalesceImages();
-        foreach($image as $index => $frame){
-                   
-        }
-    }
-}
+set_time_limit(0);
+ob_start();
+ob_implicit_flush(1);
 
+
+$data = json_decode(file_get_contents("php://input"), true);
+
+$gifHandle = new Imagick();
+$gifHandle->readImageBlob(base64_decode($data["image"]));
+
+$frames = $gifHandle->coalesceImages();
+foreach($frames as $frame){
+    echo json_encode(['data' => base64_encode($frame->getImageBlob())]);
+    ob_flush();
+}
 ?>
