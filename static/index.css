@@ -1,0 +1,55 @@
+body{
+    background: #efefef;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #2b2d36;
+}
+
+nav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 30px 0px 30px;
+}
+
+#root{
+    height: 100%;
+    display: flex;
+    padding: 0px 30px 0px 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#root>img{
+    width: 20%;
+    height: fit-content;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+span{
+    font-size: 26px;
+    color: #6e6e6e;
+    align-self: center;
+}
+
+.button{
+    font-weight: bold;
+    background-color: #2b2d36;
+    padding: 10px;
+    border-radius: 10px;
+    color: #e2e2f3;
+}
+
+.button:hover{
+    background-color: #414452;
+}
+
+input[type=file]{
+    display: none;
+}

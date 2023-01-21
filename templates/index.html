@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <h1>GifSplitter</h1>
+        <label for="file">
+            <div class="button" id="file-upload">Upload</div>
+        </label>
+        <input type="file" id="file" accept="image/GIF">
+    </nav>
+    <div id="root">
+        <span id="status-text">Upload a GIF Image</span>
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
