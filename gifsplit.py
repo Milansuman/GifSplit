@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import *
 from PIL import ImageSequence, Image
 import json
 
@@ -15,12 +15,15 @@ def uploads(filename):
 @app.route("/api/split", methods=['POST'])
 def split():
     frames = []
-    if request.method == 'POST':
-        file = request.files['image']
-        with Image.open(file) as im:
-            for i, frame in enumerate(ImageSequence.Iterator(im)):
-                frame.save(f"uploads/{file.filename}_{i}.png", format="PNG")
-                frames.append(f"uploads/{file.filename}_{i}.png")
+    try:
+        if request.method == 'POST':
+            file = request.files['image']
+            with Image.open(file) as im:
+                for i, frame in enumerate(ImageSequence.Iterator(im)):
+                    frame.save(f"uploads/{file.filename}_{i}.png", format="PNG")
+                    frames.append(f"uploads/{file.filename}_{i}.png")
 
-    
-    return json.dumps({"frames": frames})
+        
+        return json.dumps({"frames": frames})
+    except:
+        return make_response(json.dumps({}), 400)

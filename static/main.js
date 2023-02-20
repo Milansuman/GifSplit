@@ -4,8 +4,6 @@ const statusText = document.getElementById("status-text");
 const root = document.getElementById("root");
 
 fileUpload.addEventListener("change", () => {
-    root.replaceChildren();
-
     const file = fileUpload.files[0];
     console.log(fileUpload.files);
     if(file === undefined){
@@ -22,15 +20,22 @@ fileUpload.addEventListener("change", () => {
     fetch("/api/split", {
         method: "POST",
         body: data
-    }).then(response => response.json()).then(data => {
-        statusText.style.display = "none";
+    }).then(response => {
+        if(!response.ok){
+            throw Error(response.statusText);
+        }
+        return response.json();
+    }).then(data => {
         displayImages(data);
+    }).catch(err => {
+        statusText.innerText = "An error occurred";
     });
     
 });
 
 function displayImages(data){
     console.log(data);
+    root.replaceChildren();
     data.frames.forEach(frame => {
         const img = document.createElement("img");
         img.src = frame;
