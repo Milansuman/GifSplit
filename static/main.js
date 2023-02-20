@@ -3,13 +3,18 @@ const fileUpload = document.getElementById("file");
 const statusText = document.getElementById("status-text");
 const root = document.getElementById("root");
 
-fileUploadBtn.addEventListener("click", () => {
+fileUpload.addEventListener("change", () => {
     root.replaceChildren();
 
     const file = fileUpload.files[0];
+    console.log(fileUpload.files);
+    if(file === undefined){
+        return
+    }
 
+    
     const data = new FormData();
-    data.append("image", file);
+    data.set("image", file);
 
     statusText.style.display = "block";
     statusText.innerText = "Loading...";
@@ -21,6 +26,7 @@ fileUploadBtn.addEventListener("click", () => {
         statusText.style.display = "none";
         displayImages(data);
     });
+    
 });
 
 function displayImages(data){
