@@ -2,6 +2,30 @@ from flask import *
 from PIL import ImageSequence, Image
 import json
 import hashlib
+import os
+import threading
+import time
+import cleanup
+
+class Clean(threading.Thread):
+    def __init__(self, folder, filter_seconds, sleep_time):
+        super().__init__()
+        self.lock = threading.Lock()
+        self.is_using = False
+        self.secs = filter_seconds
+        self.folder = folder
+        self.sleep_time = sleep_time
+        self.daemon = True #daemonize cleanup thread
+
+    def run(self):
+        while True:
+            if not self.is_using:
+                with self.lock:
+                    cleanup.clear_cache(self.folder, self.secs)
+            time.sleep(self.sleep_time)
+            
+cleanup_thread = Clean("uploads/", 60 * 5, 60 * 10)
+cleanup_thread.start()
 
 app = Flask(__name__)
 
@@ -15,6 +39,7 @@ def uploads(filename):
 
 @app.route("/api/split", methods=['POST'])
 def split():
+    cleanup_thread.is_using = True
     frames = []
     try:
         if request.method == 'POST':
@@ -28,11 +53,14 @@ def split():
 
                     #creating a hash for all the frames. The hashing helps with duplication issues.
                     frame_hash = hashlib.md5(f"{file_hash}{i}".encode()).hexdigest()
-                    frame.save(f"uploads/{frame_hash}.png", format="PNG")
-                    frames.append(f"uploads/{frame_hash}.png")
 
+                    if not os.path.exists(f"uploads/{frame_hash}.png"):
+                        frame.save(f"uploads/{frame_hash}.png", format="PNG")
+                        
+                    frames.append(f"uploads/{frame_hash}.png")
         
+        cleanup_thread.is_using = False
         return json.dumps({"frames": frames})
-    except Exception as e:
-        print(e)
+    except:
+        cleanup_thread.is_using = False
         return make_response(json.dumps({}), 400)
